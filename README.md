@@ -7,9 +7,7 @@ Leaflet.MousePosition is a simple mouse position control that you can drop into 
 Insert the following line:
 
     ...
-    map.addLayer(mapnik);
     L.control.mousePosition().addTo(map);
-    L.control.scale().addTo(map);
     ...
 
 ## Available Options:
