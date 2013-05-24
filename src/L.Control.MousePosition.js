@@ -22,15 +22,14 @@ L.Control.MousePosition = L.Control.extend({
   },
 
   _onMouseMove: function (e) {
-    var lng = L.Util.formatNum(e.latlng.lng, this.options.numDigits);
-    var lat = L.Util.formatNum(e.latlng.lat, this.options.numDigits);
-    if (this.options.lngFormatter) lng = this.options.lngFormatter(lng);
-    if (this.options.latFormatter) lat = this.options.latFormatter(lat);
+    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
+    var lat = this.options.latFormatter ? this.options.lngFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
     var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
     this._container.innerHTML = value;
   }
 
 });
+
 L.Map.mergeOptions({
     positionControl: false
 });
