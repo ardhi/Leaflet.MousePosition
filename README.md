@@ -28,3 +28,4 @@ These are the available options:
 
 `latFormatter:` Custom function to format the latitude value. Defaults to undefined
 
+`prefix:` A string to be appended to the coordinates. Defaults to the empty string ‘’.
