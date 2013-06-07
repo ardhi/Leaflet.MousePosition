@@ -6,7 +6,8 @@ L.Control.MousePosition = L.Control.extend({
     lngFirst: false,
     numDigits: 5,
     lngFormatter: undefined,
-    latFormatter: undefined
+    latFormatter: undefined,
+    prefix: ""
   },
 
   onAdd: function (map) {
@@ -25,7 +26,8 @@ L.Control.MousePosition = L.Control.extend({
     var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
     var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
     var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-    this._container.innerHTML = value;
+    var prefixAndValue = this.options.prefix + ' ' + value;
+    this._container.innerHTML = prefixAndValue;
   }
 
 });
