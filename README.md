@@ -28,3 +28,5 @@ These are the available options:
 
 `latFormatter:` Custom function to format the latitude value. Defaults to undefined
 
+`prefix:` A string to be prepended to the current pointers coordinates. Defaults to the empty string ‘’.
+
