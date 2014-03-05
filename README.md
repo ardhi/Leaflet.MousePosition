@@ -18,7 +18,7 @@ These are the available options:
 
 `separator:` To separate longitude\latitude values. Defaults to ' : '
 
-`emptystring:` Initial text to display. Defaults to 'Unavailable'
+`emptyString:` Initial text to display. Defaults to 'Unavailable'
 
 `numDigits:` Number of digits. Defaults to 5
 
