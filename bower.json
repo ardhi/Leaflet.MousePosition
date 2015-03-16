@@ -1,0 +1,26 @@
+{
+  "name": "Leaflet.MousePosition",
+  "version": "0.2.0",
+  "homepage": "https://github.com/ardhi/Leaflet.MousePosition",
+  "authors": [
+    "Ardhi Lukianto"
+  ],
+  "description": "A Leaflet control to display the coordinates of the mouse pointer over the map",
+  "main": "dist/L.Control.MousePosition.min.js",
+  "keywords": [
+    "leaflet",
+    "mouse",
+    "position",
+    "cordinates",
+    "control",
+    "plugin"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
