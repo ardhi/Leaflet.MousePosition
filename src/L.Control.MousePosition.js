@@ -27,9 +27,16 @@ L.Control.MousePosition = L.Control.extend({
     var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
     var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
     var prefixAndValue = this.options.prefix + ' ' + value;
-    this._container.innerHTML = prefixAndValue;
-  }
-
+    this._container.innerHTML = this._encode(prefixAndValue);
+  },
+  _encode: function (str) {                                                                                    
+      return String(str)                                                                                          35         .replace(/&/g, '&amp;')                                                                                
+          .replace(/</g, '&lt;')                                                                                 
+          .replace(/>/g, '&gt;')                                                                                 
+          .replace(/"/g, '&quot;')
+          .replace(/&/g, "&amp;")
+          .replace(/"/g, "&quot;");                                                                              
+    },
 });
 
 L.Map.mergeOptions({
