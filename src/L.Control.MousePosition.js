@@ -5,6 +5,7 @@ L.Control.MousePosition = L.Control.extend({
     emptyString: 'Unavailable',
     lngFirst: false,
     numDigits: 5,
+    latLngFormatter: undefined,
     lngFormatter: undefined,
     latFormatter: undefined,
     prefix: ""
@@ -23,9 +24,16 @@ L.Control.MousePosition = L.Control.extend({
   },
 
   _onMouseMove: function (e) {
-    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
-    var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
-    var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
+    var lng = e.latlng.lng;
+    var lat = e.latlng.lat;
+	var value = "";
+	if (this.options.latLngFormatter != undefined) {
+		value = this.options.latLngFormatter(lat, lng)
+	} else {
+		lng = this.options.lngFormatter ? this.options.lngFormatter(lng) : L.Util.formatNum(lng, this.options.numDigits);
+		lat = this.options.latFormatter ? this.options.latFormatter(lat) : L.Util.formatNum(lat, this.options.numDigits);
+		value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
+	}
     var prefixAndValue = this.options.prefix + ' ' + value;
     this._container.innerHTML = prefixAndValue;
   }
