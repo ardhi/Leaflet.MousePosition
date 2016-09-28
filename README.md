@@ -28,4 +28,8 @@ These are the available options:
 
 `latFormatter:` Custom function to format the latitude value. Defaults to undefined
 
+`lngFormatters:` Array of custom functions to format the longitude value. When the mouse position control is clicked, the lngFormatter will be advanced to the next function in the array.
+
+`latFormatters:` Array of custom functions to format the latitude value. When the mouse position control is clicked, the latFormatter will be advanced to the next function in the array.
+
 `prefix:` A string to be prepended to the coordinates. Defaults to the empty string ‘’.

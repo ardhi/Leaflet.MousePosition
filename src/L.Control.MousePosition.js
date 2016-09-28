@@ -7,6 +7,8 @@ L.Control.MousePosition = L.Control.extend({
     numDigits: 5,
     lngFormatter: undefined,
     latFormatter: undefined,
+    lngFormatters: [],
+    latFormatters: [],
     prefix: ""
   },
 
@@ -15,11 +17,37 @@ L.Control.MousePosition = L.Control.extend({
     L.DomEvent.disableClickPropagation(this._container);
     map.on('mousemove', this._onMouseMove, this);
     this._container.innerHTML=this.options.emptyString;
+
+    this._formatterIndex = this.options.lngFormatters.length;
+    this._toggleFormatters();
+    const self = this;
+    L.DomEvent.on(this._container, 'click', function(e) {
+      self._toggleFormatters({
+        latlng: map.mouseEventToLatLng(e)
+      });
+    });
+
     return this._container;
   },
 
   onRemove: function (map) {
-    map.off('mousemove', this._onMouseMove)
+    L.DomEvent.off(this._container, 'click');
+    map.off('mousemove', this._onMouseMove);
+  },
+
+  _toggleFormatters: function (e) {
+    if(this.options.lngFormatters.length === 0 
+      || this.options.lngFormatters.length !== this.options.latFormatters.length) return;
+
+    this._formatterIndex++;
+    if(this._formatterIndex >= this.options.lngFormatters.length) {
+      this._formatterIndex = 0;
+    }
+
+    this.options.lngFormatter = this.options.lngFormatters[this._formatterIndex];
+    this.options.latFormatter = this.options.latFormatters[this._formatterIndex];
+    
+    if(e) this._onMouseMove(e);
   },
 
   _onMouseMove: function (e) {
