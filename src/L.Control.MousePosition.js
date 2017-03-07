@@ -1,15 +1,10 @@
 L.Control.MousePosition = L.Control.extend({
   options: {
     position: 'bottomleft',
-    separator: ' : ',
     emptyString: 'Unavailable',
-    lngFirst: false,
-    numDigits: 5,
-    lngFormatter: undefined,
-    latFormatter: undefined,
-    lngFormatters: [],
-    latFormatters: [],
-    prefix: ""
+    formatters: [function(lat, lon) {
+      return L.Util.formatNum(lat, 5) + ':' + L.Util.formatNum(lon, 5)
+    }]
   },
 
   onAdd: function (map) {
@@ -18,7 +13,7 @@ L.Control.MousePosition = L.Control.extend({
     map.on('mousemove', this._onMouseMove, this);
     this._container.innerHTML=this.options.emptyString;
 
-    this._formatterIndex = this.options.lngFormatters.length;
+    this._formatterIndex = this.options.formatters.length;
     this._toggleFormatters();
     const self = this;
     L.DomEvent.on(this._container, 'click', function(e) {
@@ -36,26 +31,18 @@ L.Control.MousePosition = L.Control.extend({
   },
 
   _toggleFormatters: function (e) {
-    if(this.options.lngFormatters.length === 0 
-      || this.options.lngFormatters.length !== this.options.latFormatters.length) return;
-
     this._formatterIndex++;
-    if(this._formatterIndex >= this.options.lngFormatters.length) {
+    if(this._formatterIndex >= this.options.formatters.length) {
       this._formatterIndex = 0;
     }
 
-    this.options.lngFormatter = this.options.lngFormatters[this._formatterIndex];
-    this.options.latFormatter = this.options.latFormatters[this._formatterIndex];
+    this._formatter = this.options.formatters[this._formatterIndex];
     
     if(e) this._onMouseMove(e);
   },
 
   _onMouseMove: function (e) {
-    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
-    var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
-    var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-    var prefixAndValue = this.options.prefix + ' ' + value;
-    this._container.innerHTML = prefixAndValue;
+    this._container.innerHTML = this._formatter(e.latlng.lat, e.latlng.lng);
   }
 
 });
