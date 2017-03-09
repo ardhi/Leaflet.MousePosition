@@ -1,13 +1,10 @@
 L.Control.MousePosition = L.Control.extend({
   options: {
     position: 'bottomleft',
-    separator: ' : ',
     emptyString: 'Unavailable',
-    lngFirst: false,
-    numDigits: 5,
-    lngFormatter: undefined,
-    latFormatter: undefined,
-    prefix: ""
+    formatters: [function(lat, lon) {
+      return L.Util.formatNum(lat, 5) + ':' + L.Util.formatNum(lon, 5)
+    }]
   },
 
   onAdd: function (map) {
@@ -15,19 +12,37 @@ L.Control.MousePosition = L.Control.extend({
     L.DomEvent.disableClickPropagation(this._container);
     map.on('mousemove', this._onMouseMove, this);
     this._container.innerHTML=this.options.emptyString;
+
+    this._formatterIndex = this.options.formatters.length;
+    this._toggleFormatters();
+    const self = this;
+    L.DomEvent.on(this._container, 'click', function(e) {
+      self._toggleFormatters({
+        latlng: map.mouseEventToLatLng(e)
+      });
+    });
+
     return this._container;
   },
 
   onRemove: function (map) {
-    map.off('mousemove', this._onMouseMove)
+    L.DomEvent.off(this._container, 'click');
+    map.off('mousemove', this._onMouseMove);
+  },
+
+  _toggleFormatters: function (e) {
+    this._formatterIndex++;
+    if(this._formatterIndex >= this.options.formatters.length) {
+      this._formatterIndex = 0;
+    }
+
+    this._formatter = this.options.formatters[this._formatterIndex];
+    
+    if(e) this._onMouseMove(e);
   },
 
   _onMouseMove: function (e) {
-    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
-    var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
-    var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-    var prefixAndValue = this.options.prefix + ' ' + value;
-    this._container.innerHTML = prefixAndValue;
+    this._container.innerHTML = this._formatter(e.latlng.lat, e.latlng.lng);
   }
 
 });
