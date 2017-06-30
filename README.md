@@ -29,3 +29,5 @@ These are the available options:
 `latFormatter:` Custom function to format the latitude value. Defaults to undefined
 
 `prefix:` A string to be prepended to the coordinates. Defaults to the empty string ‘’.
+
+`formatter:` A custom function to format the entire value. If used will ignore: `lngFirst`, `lngFormatter`, `latFormatter`, `prefix`
