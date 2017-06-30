@@ -7,6 +7,7 @@ L.Control.MousePosition = L.Control.extend({
     numDigits: 5,
     lngFormatter: undefined,
     latFormatter: undefined,
+    formatter: undefined,
     prefix: ""
   },
 
@@ -23,10 +24,19 @@ L.Control.MousePosition = L.Control.extend({
   },
 
   _onMouseMove: function (e) {
-    var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
-    var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
-    var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-    var prefixAndValue = this.options.prefix + ' ' + value;
+    var lng;
+    var lat;
+    var value;
+    var prefixAndValue;
+    if (this.options.formatter) {
+        prefixAndValue = this.options.formatter(e.latlng.lng, e.latlng.lat);
+    } else {
+        lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.lng) : L.Util.formatNum(e.latlng.lng, this.options.numDigits);
+        lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
+        value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
+        prefixAndValue = this.options.prefix + ' ' + value;
+    }
+
     this._container.innerHTML = prefixAndValue;
   }
 
