@@ -1,6 +1,6 @@
 {
   "name": "leaflet-mouse-position",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "An npm wrapper for Ardhi Lukianto’s Leaflet.MousePosition plugin",
   "main": "src/L.Control.MousePosition.js",
   "scripts": {

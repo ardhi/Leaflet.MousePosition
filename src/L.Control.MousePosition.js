@@ -25,7 +25,7 @@ L.Control.MousePosition = L.Control.extend({
 		map.off('mousemove', this._onMouseMove)
 	},
 
-	getPosition: function() {
+	getLatLng: function() {
 		return this._pos;
 	},
 
