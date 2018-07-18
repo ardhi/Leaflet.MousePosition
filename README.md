@@ -1,4 +1,4 @@
-# Leaflet.MousePosition
+# leaflet-mouse-position [![npm version][npm-image]][npm-url] [![NPM Downloads][npm-downloads-image]][npm-url]
 
 Leaflet.MousePosition is a simple mouse position control that you can drop into your leaflet map. It displays geographic coordinates of the mouse pointer, as it is moved about the map.
 
@@ -29,3 +29,20 @@ These are the available options:
 `latFormatter:` Custom function to format the latitude value. Defaults to undefined
 
 `prefix:` A string to be prepended to the coordinates. Defaults to the empty string ‘’.
+
+## Public Methods:
+
+These are the available methods:
+
+`getLatLng:` Request the last recorded cursor position, as a
+[LatLng](https://leafletjs.com/reference-1.3.2.html#latlng) object.
+
+## License
+
+MIT License (MIT)
+
+
+
+[npm-image]: https://badge.fury.io/js/leaflet-mouse-position.svg
+[npm-url]: https://www.npmjs.com/package/leaflet-mouse-position
+[npm-downloads-image]: https://img.shields.io/npm/dt/leaflet-mouse-position.svg

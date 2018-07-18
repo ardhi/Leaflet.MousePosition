@@ -1,4 +1,7 @@
 L.Control.MousePosition = L.Control.extend({
+
+	_pos: null,
+
 	options: {
 		position: 'bottomleft',
 		separator: ' : ',
@@ -22,12 +25,16 @@ L.Control.MousePosition = L.Control.extend({
 		map.off('mousemove', this._onMouseMove)
 	},
 
+	getPosition: function() {
+		return this._pos;
+	},
+
 	_onMouseMove: function (e) {
+		this._pos = e.latlng.wrap();
 		var lng = this.options.lngFormatter ? this.options.lngFormatter(e.latlng.wrap().lng) : L.Util.formatNum(e.latlng.wrap().lng, this.options.numDigits);
 		var lat = this.options.latFormatter ? this.options.latFormatter(e.latlng.lat) : L.Util.formatNum(e.latlng.lat, this.options.numDigits);
 		var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-		var prefixAndValue = this.options.prefix + ' ' + value;
-		this._container.innerHTML = prefixAndValue;
+		this._container.innerHTML = this.options.prefix + ' ' + value;
 	}
 
 });
