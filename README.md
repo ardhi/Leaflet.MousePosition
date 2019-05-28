@@ -30,6 +30,8 @@ These are the available options:
 
 `prefix:` A string to be prepended to the coordinates. Defaults to the empty string ‘’.
 
+`wrapLng:` Controls if longitude values will be wrapped. Defaults to true.
+
 ## Public Methods:
 
 These are the available methods:

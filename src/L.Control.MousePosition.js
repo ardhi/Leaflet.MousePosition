@@ -11,6 +11,7 @@ L.Control.MousePosition = L.Control.extend({
 		lngFormatter: undefined,
 		latFormatter: undefined,
 		prefix: "",
+		wrapLng: true,
 	},
 
 	onAdd: function (map) {
@@ -31,7 +32,7 @@ L.Control.MousePosition = L.Control.extend({
 
 	_onMouseMove: function (e) {
 		this._pos = e.latlng.wrap();
-		var lngValue = e.latlng.wrap().lng;
+		var lngValue = this.options.wrapLng ? e.latlng.wrap().lng : e.latlng.lng;
 		var latValue = e.latlng.lat;
 		var lng = this.options.lngFormatter ? this.options.lngFormatter(lngValue) : L.Util.formatNum(lngValue, this.options.numDigits);
 		var lat = this.options.latFormatter ? this.options.latFormatter(latValue) : L.Util.formatNum(latValue, this.options.numDigits);
