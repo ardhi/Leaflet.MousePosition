@@ -30,7 +30,7 @@ These are the available options:
 
 `prefix:` A string to be prepended to the coordinates. Defaults to the empty string ‘’.
 
-`wrapLng:` Controls if longitude values will be wrapped. Defaults to true.
+`wrapLng:` Controls if longitude values will be [wrapped](https://leafletjs.com/reference-1.5.0.html#latlng-wrap). Defaults to true.
 
 ## Public Methods:
 
