@@ -10,6 +10,7 @@ L.Control.MousePosition = L.Control.extend({
 		numDigits: 5,
 		lngFormatter: undefined,
 		latFormatter: undefined,
+		formatter: undefined,
 		prefix: "",
 		wrapLng: true,
 	},
@@ -39,10 +40,14 @@ L.Control.MousePosition = L.Control.extend({
 		var value;
 		var prefixAndValue;
 
-		lng = this.options.lngFormatter ? this.options.lngFormatter(lngValue) : L.Util.formatNum(lngValue, this.options.numDigits);
-		lat = this.options.latFormatter ? this.options.latFormatter(latValue) : L.Util.formatNum(latValue, this.options.numDigits);
-		value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-		prefixAndValue = this.options.prefix + ' ' + value;
+		if (this.options.formatter) {
+			prefixAndValue = this.options.formatter(lngValue, latValue);
+		} else {
+			lng = this.options.lngFormatter ? this.options.lngFormatter(lngValue) : L.Util.formatNum(lngValue, this.options.numDigits);
+			lat = this.options.latFormatter ? this.options.latFormatter(latValue) : L.Util.formatNum(latValue, this.options.numDigits);
+			value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
+			prefixAndValue = this.options.prefix + ' ' + value;
+		}
 
 		this._container.innerHTML = prefixAndValue;
 	}

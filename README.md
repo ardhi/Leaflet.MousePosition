@@ -34,6 +34,8 @@ These are the available options:
 
 `wrapLng:` Controls if longitude values will be [wrapped](https://leafletjs.com/reference-1.5.0.html#latlng-wrap). Defaults to true.
 
+`formatter:` A custom function to format the entire value. If used will ignore: `lngFirst`, `lngFormatter`, `latFormatter`, `prefix`
+
 ## Public Methods:
 
 These are the available methods:
