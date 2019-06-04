@@ -10,6 +10,7 @@ L.Control.MousePosition = L.Control.extend({
 		numDigits: 5,
 		lngFormatter: undefined,
 		latFormatter: undefined,
+		formatter: undefined,
 		prefix: "",
 		wrapLng: true,
 	},
@@ -34,10 +35,21 @@ L.Control.MousePosition = L.Control.extend({
 		this._pos = e.latlng.wrap();
 		var lngValue = this.options.wrapLng ? e.latlng.wrap().lng : e.latlng.lng;
 		var latValue = e.latlng.lat;
-		var lng = this.options.lngFormatter ? this.options.lngFormatter(lngValue) : L.Util.formatNum(lngValue, this.options.numDigits);
-		var lat = this.options.latFormatter ? this.options.latFormatter(latValue) : L.Util.formatNum(latValue, this.options.numDigits);
-		var value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
-		this._container.innerHTML = this.options.prefix + ' ' + value;
+		var lng;
+		var lat;
+		var value;
+		var prefixAndValue;
+
+		if (this.options.formatter) {
+			prefixAndValue = this.options.formatter(lngValue, latValue);
+		} else {
+			lng = this.options.lngFormatter ? this.options.lngFormatter(lngValue) : L.Util.formatNum(lngValue, this.options.numDigits);
+			lat = this.options.latFormatter ? this.options.latFormatter(latValue) : L.Util.formatNum(latValue, this.options.numDigits);
+			value = this.options.lngFirst ? lng + this.options.separator + lat : lat + this.options.separator + lng;
+			prefixAndValue = this.options.prefix + ' ' + value;
+		}
+
+		this._container.innerHTML = prefixAndValue;
 	}
 
 });

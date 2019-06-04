@@ -26,13 +26,16 @@ These are the available options:
 
 `lngFirst:` Weather to put the longitude first or not. Defaults to false
 
-`lngFormatter:` Custom function to format the longitude value. Defaults to undefined
+`lngFormatter:` Custom function to format the longitude value. Argument: numerical longitude value. Return value: formatted string. Defaults to undefined.
 
-`latFormatter:` Custom function to format the latitude value. Defaults to undefined
+`latFormatter:` Custom function to format the latitude value. Argument: numerical latitude value. Return value: formatted string. Defaults to undefined.
 
 `prefix:` A string to be prepended to the coordinates. Defaults to the empty string ‘’.
 
 `wrapLng:` Controls if longitude values will be [wrapped](https://leafletjs.com/reference-1.5.0.html#latlng-wrap). Defaults to true.
+
+`formatter:` A custom function to format the entire value. Arguments: numerical longitude value, numerical latitude value. Return value: formatted string.
+ Defaults to undefined. If defined will ignore: `lngFirst`, `lngFormatter`, `latFormatter` and `prefix`.
 
 ## Public Methods:
 
