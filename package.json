@@ -1,0 +1,23 @@
+{
+  "name": "leaflet-mouse-position",
+  "version": "1.2.0",
+  "description": "An npm wrapper for Ardhi Lukianto’s Leaflet.MousePosition plugin",
+  "main": "src/L.Control.MousePosition.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danwild/Leaflet.MousePosition.git"
+  },
+  "keywords": [
+    "leaflet",
+    "leafletjs"
+  ],
+  "author": "https://github.com/ardhi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danwild/Leaflet.MousePosition/issues"
+  },
+  "homepage": "https://github.com/danwild/Leaflet.MousePosition#readme"
+}
